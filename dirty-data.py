@@ -1,16 +1,13 @@
 import pandas as pd
 import numpy as np
-from numpy.random import default_rng
 import argparse
-from tqdm import tqdm
-
+import tqdm as tqdm
 # Default input and output filenames
 DEFAULT_INPUT_FILE = 'ddf--datapoints--population--by--income_groups--age--gender--year.csv'
 DEFAULT_OUTPUT_FILE = 'messy_population_data.csv'
 
 # Create a random number generator
-rng = default_rng(seed=42)
-
+rng = np.random.default_rng(seed=42)
 def load_data(file_path):
     """Load the original clean dataset."""
     return pd.read_csv(file_path)
@@ -93,7 +90,7 @@ if __name__ == '__main__':
     ]
     
     # Apply messy steps with progress bar
-    with tqdm(total=len(messy_steps), desc="Creating messy dataset") as pbar:
+    with tqdm.tqdm(total=len(messy_steps), desc="Creating messy dataset") as pbar:
         for step_desc, step_func in messy_steps:
             df_messy = step_func(df_messy)
             pbar.set_description(f"Completed: {step_desc}")
